@@ -50,10 +50,6 @@ def classificar_email(email:str) -> dict:
             "Categoria": "Erro",
             "Sugestão": "Não foi possível processar o email."
         }
-# response = client.models.generate_content(
-#     model="gemini-2.5-flash", contents="Me explique em IA em poucas palavras"
-# )
-# print(response.text)
 
 teste1= "Prezados, bom dia.Segue em anexo a versão final da proposta comercial para o Projeto Ômega. Peço a gentileza de revisarem todos os pontos, especialmente as cláusulas 3.1 e 5.2, e me darem um retorno com o 'de acordo' até as 16h de hoje, 28/09. O cliente aguarda o nosso envio amanhã pela manhã. Atenciosamente, Ana Silva"
 teste2="Pessoal, O que acham de fazermos um happy hour nesta sexta-feira, dia 03/10, para relaxar um pouco depois do fechamento do trimestre? Pensei no Bar da Esquina, por volta das 18h30. Quem tiver interesse, por favor, responda aqui até quinta para eu ter uma noção de quantas pessoas vão. Abraços, Camila"
