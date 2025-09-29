@@ -1,9 +1,25 @@
 from dotenv import load_dotenv
 from google import genai
+import re
 
 load_dotenv()
 
 client = genai.Client()
+
+def pre_processar_email(texto: str) -> str:
+    """
+    Limpa o texto de um email para ser enviado a um LLM.
+    Foca em remover ruídos (HTML, URLs).
+    """
+
+    texto_limpo = re.sub(r'<[^>]+>', '', texto)
+    
+    texto_limpo = re.sub(r'http\S+|www\S+', '', texto_limpo)
+
+    texto_limpo = re.sub(r'\s+', ' ', texto_limpo).strip()
+
+    return texto_limpo
+
 
 def classificar_email(email:str) -> dict:
     prompt_email = f"""
@@ -50,10 +66,3 @@ def classificar_email(email:str) -> dict:
             "Categoria": "Erro",
             "Sugestão": "Não foi possível processar o email."
         }
-
-teste1= "Prezados, bom dia.Segue em anexo a versão final da proposta comercial para o Projeto Ômega. Peço a gentileza de revisarem todos os pontos, especialmente as cláusulas 3.1 e 5.2, e me darem um retorno com o 'de acordo' até as 16h de hoje, 28/09. O cliente aguarda o nosso envio amanhã pela manhã. Atenciosamente, Ana Silva"
-teste2="Pessoal, O que acham de fazermos um happy hour nesta sexta-feira, dia 03/10, para relaxar um pouco depois do fechamento do trimestre? Pensei no Bar da Esquina, por volta das 18h30. Quem tiver interesse, por favor, responda aqui até quinta para eu ter uma noção de quantas pessoas vão. Abraços, Camila"
-teste3="Olá! Sabemos que o dia a dia pode ser corrido. Por isso, separamos 5 estratégias práticas que você pode aplicar hoje mesmo para melhorar sua produtividade: Técnica Pomodoro; Matriz de Eisenhower; .. (etc.) Gostou das dicas? Nossa ferramenta, o 'TaskMaster Pro', ajuda a implementar tudo isso de forma automática. Quer saber como? Responda a este email para agendar uma demonstração de 15 minutos! Equipe TaskMaster Pro"
-teste4="Oi, Marcos. Tudo bem? Vi este artigo hoje de manhã e lembrei da nossa conversa sobre as tendências para 2026. A parte sobre a automação de processos via IA é especialmente relevante. https://www.examplereport.com/future-of-our-market-ai Sem pressa para ler, apenas pensei que você gostaria de ver. Abraço, Fernando"
-resposta = classificar_email(teste4)
-print(resposta)
