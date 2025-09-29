@@ -1,25 +1,7 @@
-from dotenv import load_dotenv
 from google import genai
-import re
+from app.core.config import settings
 
-load_dotenv()
-
-client = genai.Client()
-
-def pre_processar_email(texto: str) -> str:
-    """
-    Limpa o texto de um email para ser enviado a um LLM.
-    Foca em remover ruídos (HTML, URLs).
-    """
-
-    texto_limpo = re.sub(r'<[^>]+>', '', texto)
-    
-    texto_limpo = re.sub(r'http\S+|www\S+', '', texto_limpo)
-
-    texto_limpo = re.sub(r'\s+', ' ', texto_limpo).strip()
-
-    return texto_limpo
-
+client = genai.Client(api_key=settings.GEMINI_API_KEY)
 
 def classificar_email(email:str) -> dict:
     prompt_email = f"""
@@ -57,12 +39,12 @@ def classificar_email(email:str) -> dict:
         )
 
         return{
-            "Categoria":{classificacao.text},
-            "Sugestão":{resposta.text}
+            "categoria":classificacao.text,
+            "resposta":resposta.text
         }
     except Exception as e:
         print(f"Ocorreu um erro ao chamar a API do Gemini: {e}")
         return {
-            "Categoria": "Erro",
-            "Sugestão": "Não foi possível processar o email."
+            "categoria": "Erro",
+            "resposta": "Não foi possível processar o email."
         }
