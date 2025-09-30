@@ -26,7 +26,7 @@ def classificar_email(email:str) -> dict:
         Com base nisso, escreva uma sugestão de resposta curta, profissional e em português.
 
         - Se for "Produtivo", a resposta deve ser para acusar o recebimento e indicar que será tratado.
-        - Se for "Improdutivo", a resposta pode ser para agradecer e informar que será arquivado.
+        - Se for "Improdutivo", a resposta pode ser para agradecer e informar graciosamente que será arquivado.
 
         Email:
         ---

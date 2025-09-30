@@ -6,7 +6,7 @@ export function Header() {
     <div className="flex justify-between px-3 py-1 border-2">
       <div className="flex space-x-3 pt-1">
         <Mail />
-        <span>NextMail</span>
+        <span>AutoUMail</span>
       </div>
       <div>
         <ModeToggle/>
