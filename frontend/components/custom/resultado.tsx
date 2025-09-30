@@ -49,11 +49,11 @@ export function Resultado({ isLoading, result }: ResultadoProps) {
     }
     
     // Estado inicial ou vazio
-    return <p className="text-sm text-muted-foreground">O resultado da sua análise aparecerá aqui.</p>;
+    return <p className="text-lg text-muted-foreground">O resultado da sua análise aparecerá aqui.</p>;
   };
 
   return (
-    <Card className="w-full max-w-2xl min-h-[460px]">
+    <Card className="w-full max-w-2xl min-h-[552px]">
       <CardHeader className="flex flex-row items-center gap-2">
         <ReceiptText />
         <CardTitle>Resultado da Classificação</CardTitle>

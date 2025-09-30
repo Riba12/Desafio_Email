@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Dropzone } from "@/components/ui/dropzone";
-import { Loader2 } from "lucide-react";
+import { FileText, Loader2, MailPlus } from "lucide-react";
 
 interface CardUploadProps {
     file: File | null;
@@ -23,7 +23,10 @@ export default function CardUpload({ file, setFile, textContent, setTextContent,
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="space-y-2">
+          <div className="flex space-x-3">
+          <MailPlus/>
           <label htmlFor="email-text" className="font-medium">Cole o texto do email</label>
+          </div>
           <Textarea 
             id="email-text"
             placeholder="Cole o conteúdo completo do seu email aqui..."
@@ -35,7 +38,10 @@ export default function CardUpload({ file, setFile, textContent, setTextContent,
         </div>
         <div className="text-center text-sm text-gray-500">OU</div>
         <div className="space-y-2">
+          <div className="flex space-x-3">
+          <FileText/>
           <label className="font-medium">Faça upload de um arquivo</label>
+          </div>
           <Dropzone onFileAccepted={setFile} />
         </div>
         <Button onClick={onAnalisar} disabled={isLoading} className="w-full text-lg py-6">

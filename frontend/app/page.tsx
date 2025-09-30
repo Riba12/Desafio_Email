@@ -30,7 +30,7 @@ export default function Home() {
       <section>
         <Header/>
       </section>
-      <section className="h-full">
+      <section className="h-full items-center flex flex-col">
         <DynamicMain />
       </section>
     </main>

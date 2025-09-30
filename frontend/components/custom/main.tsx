@@ -6,17 +6,22 @@ import CardUpload from "./cardUpload";
 import { Resultado, ResultadoProps } from "./resultado";
 import { getTextFromFile } from "@/lib/file-reader";
 
-// Define a URL da sua API. Lembre-se de colocar o prefixo que definimos.
-const API_URL = 'http://127.0.0.1:8000/processar/';
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export function Main() {
-  // O estado e a lógica vivem aqui, no componente pai.
   const [file, setFile] = useState<File | null>(null);
   const [textContent, setTextContent] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [apiResult, setApiResult] = useState<ResultadoProps['result'] | null>(null);
 
   const handleAnalisar = async () => {
+
+    if (!API_URL) {
+      toast.error("Erro de configuração: A URL da API não foi definida.");
+      console.error("A variável de ambiente NEXT_PUBLIC_API_URL não está definida.");
+      return; 
+    }
+
     setIsLoading(true);
     setApiResult(null);
     let emailContent = '';
@@ -58,15 +63,15 @@ export function Main() {
   };
 
   return (
-    <section className="flex flex-col h-full container py-8">
+    <section className="flex flex-col h-full py-8 lg:min-w-[1200px] max-w-[1920px]">
       <div className="text-center py-5 space-y-2">
-        <h1 className="text-4xl lg:text-5xl font-bold">Analisador de Email</h1>
+        <h1 className="text-4xl lg:text-5xl font-bold">AutoUEmail</h1>
         <h2 className="text-lg lg:text-xl text-muted-foreground">
           Use IA para classificar seus emails e gerar respostas
         </h2>
       </div>
-      <div className="flex flex-col lg:flex-row justify-around items-start gap-8 grow p-4">
-        <div className="w-full lg:w-1/2 flex justify-center">
+      <div className="flex flex-col lg:flex-row justify-around items-center gap-8 grow p-4 place-items-center">
+        <div className="w-full lg:w-1/2 flex justify-center ">
             <CardUpload
                 file={file}
                 setFile={setFile}
