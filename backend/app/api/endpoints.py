@@ -19,6 +19,6 @@ def processar_email_endpoint(request: schemas.EmailEnviado):
     resultado = classificador.classificar_email(texto_limpo)
 
     if resultado["categoria"] == "Erro":
-        raise HTTPException(status_code=500, detail=resultado["sugestao_resposta"])
+        raise HTTPException(status_code=500, detail=resultado["resposta"])
         
     return schemas.EmailResposta(**resultado)
