@@ -65,7 +65,7 @@ export function Main() {
   return (
     <section className="flex flex-col h-full py-8 lg:min-w-[1200px] max-w-[1920px]">
       <div className="text-center py-5 space-y-2">
-        <h1 className="text-4xl lg:text-5xl font-bold">AutoUEmail</h1>
+        <h1 className="text-4xl lg:text-5xl font-bold"><span className="text-cyan-700">AutoUEmail </span>Dashboard</h1>
         <h2 className="text-lg lg:text-xl text-muted-foreground">
           Use IA para classificar seus emails e gerar respostas
         </h2>

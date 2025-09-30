@@ -17,7 +17,7 @@ interface CardUploadProps {
 
 export default function CardUpload({ file, setFile, textContent, setTextContent, onAnalisar, isLoading }: CardUploadProps) {
   return (
-    <Card className="w-full max-w-2xl">
+    <Card className="w-full max-w-2xl shadow-2xl min-h-[568px]">
       <CardHeader>
         <CardTitle className="text-2xl text-center">Entrada do Email</CardTitle>
       </CardHeader>
@@ -44,7 +44,7 @@ export default function CardUpload({ file, setFile, textContent, setTextContent,
           </div>
           <Dropzone onFileAccepted={setFile} />
         </div>
-        <Button onClick={onAnalisar} disabled={isLoading} className="w-full text-lg py-6">
+        <Button onClick={onAnalisar} disabled={isLoading} className="w-full text-lg py-6 bg-gradient-to-r from-cyan-800 to-blue-500">
           {isLoading ? (
             <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Analisando...</>
           ) : (
