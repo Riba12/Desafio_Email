@@ -4,6 +4,11 @@ from app.api.endpoints import router as email_router
 
 app = FastAPI(title="Analisador de Email com IA")
 
+origins = [
+    "https://autoumail-cl0k.onrender.com", 
+    "http://localhost:3000",          
+]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  
