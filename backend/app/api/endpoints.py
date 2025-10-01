@@ -6,19 +6,14 @@ from app.utils import cleanup
 # Cria um "roteador" que pode ser incluído na aplicação principal
 router = APIRouter()
 
-@router.post("/processar/", response_model=schemas.EmailResposta)
-def processar_email_endpoint(request: schemas.EmailEnviado):
-    """
-    Recebe um texto de email, o processa e retorna a classificação e sugestão.
-    """
-    if not request.texto:
-        raise HTTPException(status_code=400, detail="O campo 'texto' não pode estar vazio.")
+@router.post("/processar/", response_model=schemas.EmailLoteResponse)
+async def processar_email_endpoint(request: schemas.EmailLoteRequest):
+    if not request.emails:
+        raise HTTPException(status_code=400, detail="A lista de emails não pode estar vazia.")
     
-    texto_limpo = cleanup.pre_processar_email(request.texto)
+    for email in request.emails:
+        email.texto= cleanup.pre_processar_email(email.texto)
     
-    resultado = classificador.classificar_email(texto_limpo)
-
-    if resultado["categoria"] == "Erro":
-        raise HTTPException(status_code=500, detail=resultado["resposta"])
+    resultado = await classificador.processar_lote_de_emails(request.emails)
         
-    return schemas.EmailResposta(**resultado)
+    return schemas.EmailLoteResponse(resultados=resultado)
